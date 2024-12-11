@@ -29,7 +29,7 @@ export type ResponsiveSpacingToken = TShirtSizes;
 
 export type ShadowSize = TShirtSizes;
 
-export type SpacingToken = StaticSpacingToken | ResponsiveSpacingToken;
+export type SpacingToken = StaticSpacingToken | ResponsiveSpacingToken | string;
 
 export type ColorScheme = 
 | 'neutral'

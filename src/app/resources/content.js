@@ -1,254 +1,176 @@
 import { InlineCode } from "@/once-ui/components";
 
-const person = {
-    firstName: 'Selene',
-    lastName:  'Yu',
-    get name() {
-        return `${this.firstName} ${this.lastName}`;
-    },
-    role:      'Design Engineer',
-    avatar:    '/images/avatar.jpg',
-    location:  'Asia/Jakarta',        // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-    languages: ['English', 'Bahasa']  // optional: Leave the array empty if you don't want to display languages
-}
+const createContent = () => {
+    const person = {
+        firstName: 'Aditya',
+        lastName: 'K',
+        get name() {
+            return `${this.firstName} ${this.lastName}`;
+        },
+        role: "Software Engineer",
+        avatar: '/images/avatar.jpg',
+        location: 'Asia/Kolkata',
+        languages: ['English', 'Hindi']
+    }
 
-const newsletter = {
-    display: true,
-    title: <>Subscribe to {person.firstName}'s Newsletter</>,
-    description: <>I occasionally write about design, technology, and share thoughts on the intersection of creativity and engineering.</>
-}
-
-const social = [
-    // Links are automatically displayed.
-    // Import new icons in /once-ui/icons.ts
-    {
-        name: 'GitHub',
-        icon: 'github',
-        link: 'https://github.com/once-ui-system/nextjs-starter',
-    },
-    {
-        name: 'LinkedIn',
-        icon: 'linkedin',
-        link: 'https://www.linkedin.com/company/once-ui/',
-    },
-    {
-        name: 'X',
-        icon: 'x',
-        link: '',
-    },
-    {
-        name: 'Email',
-        icon: 'email',
-        link: 'mailto:example@gmail.com',
-    },
-]
-
-const home = {
-    label: 'Home',
-    title: `${person.name}'s Portfolio`,
-    description: `Portfolio website showcasing my work as a ${person.role}`,
-    headline: <>Design engineer and builder</>,
-    subline: <>I'm Selene, a design engineer at <InlineCode>FLY</InlineCode>, where I craft intuitive<br/> user experiences. After hours, I build my own projects.</>
-}
-
-const about = {
-    label: 'About',
-    title: 'About me',
-    description: `Meet ${person.name}, ${person.role} from ${person.location}`,
-    tableOfContent: {
+    const newsletter = {
         display: true,
-        subItems: true
-    },
-    avatar: {
-        display: true
-    },
-    calendar: {
-        display: true,
-        link: 'https://cal.com'
-    },
-    intro: {
-        display: true,
-        title: 'Introduction',
-        description: <>Selene is a Jakarta-based design engineer with a passion for transforming complex challenges into simple, elegant design solutions. Her work spans digital interfaces, interactive experiences, and the convergence of design and technology.</>
-    },
-    work: {
-        display: true, // set to false to hide this section
-        title: 'Work Experience',
-        experiences: [
-            {
-                company: 'FLY',
-                timeframe: '2022 - Present',
-                role: 'Senior Design Engineer',
-                achievements: [
-                    <>Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user engagement and 30% faster load times.</>,
-                    <>Spearheaded the integration of AI tools into design workflows, enabling designers to iterate 50% faster.</>
-                ],
-                images: [ // optional: leave the array empty if you don't want to display images
-                    {
-                        src: '/images/projects/project-01/cover-01.jpg',
-                        alt: 'Once UI Project',
-                        width: 16,
-                        height: 9
-                    }
-                ]
-            },
-            {
-                company: 'Creativ3',
-                timeframe: '2018 - 2022',
-                role: 'Lead Designer',
-                achievements: [
-                    <>Developed a design system that unified the brand across multiple platforms, improving design consistency by 40%.</>,
-                    <>Led a cross-functional team to launch a new product line, contributing to a 15% increase in overall company revenue.</>
-                ],
-                images: [ ]
-            }
-        ]
-    },
-    studies: {
-        display: true, // set to false to hide this section
-        title: 'Studies',
-        institutions: [
-            {
-                name: 'University of Jakarta',
-                description: <>Studied software engineering.</>,
-            },
-            {
-                name: 'Build the Future',
-                description: <>Studied online marketing and personal branding.</>,
-            }
-        ]
-    },
-    technical: {
-        display: true, // set to false to hide this section
-        title: 'Technical skills',
-        skills: [
-            {
-                title: 'Figma',
-                description: <>Able to prototype in Figma with Once UI with unnatural speed.</>,
-                images: [
-                    {
-                        src: '/images/projects/project-01/cover-02.jpg',
-                        alt: 'Project image',
-                        width: 16,
-                        height: 9
-                    },
-                    {
-                        src: '/images/projects/project-01/cover-03.jpg',
-                        alt: 'Project image',
-                        width: 16,
-                        height: 9
-                    },
-                ]
-            },
-            {
-                title: 'Next.js',
-                description: <>Building next gen apps with Next.js + Once UI + Supabase.</>,
-                images: [
-                    {
-                        src: '/images/projects/project-01/cover-04.jpg',
-                        alt: 'Project image',
-                        width: 16,
-                        height: 9
-                    },
-                ]
-            }
-        ]
+        title: <>Subscribe to {person.firstName}&apos;s Newsletter</>,
+        description: <>Get notified when I publish new content. No spam, unsubscribe at any time.</>
+    }
+
+    const social = [
+        {
+            name: 'GitHub',
+            icon: 'github',
+            link: 'https://github.com/97k',
+        },
+        {
+            name: 'LinkedIn',
+            icon: 'linkedin',
+            link: 'https://www.linkedin.com/in/adityakxco/',
+        },
+        {
+            name: 'X',
+            icon: 'x',
+            link: 'https://x.com/think_ad',
+        },
+        {
+            name: 'Email',
+            icon: 'email',
+            link: 'mailto:97k.work@gmail.com',
+        },
+    ]
+
+    const home = {
+        label: "Home",
+        title: `Hi, I&apos;m ${person.name}`,
+        description: `I&apos;m a ${person.role} based in India`,
+        headline: <>Building digital products with a focus on user experience</>,
+        subline: <>Passionate about creating intuitive and impactful solutions</>
+    }
+
+    const about = {
+        label: "About",
+        title: "About",
+        description: `I&apos;m ${person.name}, a ${person.role} based in ${person.location}`,
+        tableOfContent: {
+            display: true,
+            subItems: true
+        },
+        avatar: {
+            display: true
+        },
+        calendar: {
+            display: true,
+            link: 'https://cal.com/adityakxco'
+        },
+        intro: {
+            display: true,
+            title: "Introduction",
+            description: <>I&apos;m a software engineer with a passion for building great products. I focus on creating intuitive user experiences and scalable solutions.</>
+        },
+        work: {
+            display: true,
+            title: "Work Experience",
+            experiences: [
+                {
+                    company: 'TaskHuman',
+                    timeframe: "2022 - Present",
+                    role: "Senior Software Engineer",
+                    achievements: [
+                        "Led development of key platform features",
+                        "Improved application performance by 40%",
+                        "Implemented real-time communication features"
+                    ],
+                    images: [
+                        {
+                            src: '/images/projects/project-01/cover-01.jpg',
+                            alt: 'Once UI Project',
+                            width: 16,
+                            height: 9
+                        }
+                    ]
+                },
+                {
+                    company: 'NeuroEquilibrium',
+                    timeframe: "2020 - 2022",
+                    role: "Software Engineer",
+                    achievements: [
+                        "Developed diagnostic tools",
+                        "Implemented telemedicine features",
+                        "Optimized data processing pipelines"
+                    ],
+                    images: []
+                },
+                {
+                    company: 'Celebal Tech',
+                    timeframe: "2019 - 2020",
+                    role: "Software Engineer",
+                    achievements: [
+                        "Built enterprise solutions",
+                        "Implemented cloud infrastructure",
+                        "Developed data analytics tools"
+                    ],
+                    images: []
+                }
+            ]
+        },
+        technical: {
+            display: true,
+            title: "Technical Skills",
+            skills: [
+                {
+                    title: 'Next.js',
+                    description: <>Expert in building modern web applications with Next.js, focusing on performance and SEO</>,
+                    images: [
+                        {
+                            src: '/images/projects/project-01/cover-04.jpg',
+                            alt: 'Project image',
+                            width: 16,
+                            height: 9
+                        },
+                    ]
+                }
+            ]
+        },
+        studies: {
+            display: true,
+            title: "Education",
+            institutions: [
+                {
+                    name: "Jaipur Engineering College and Research Centre",
+                    description: "Bachelor of Technology in Computer Science (2016-2020)",
+                },
+                {
+                    name: "St. Edmund's School",
+                    description: "High School, Science with Maths (2014-2016)",
+                }
+            ]
+        },
+    }
+
+    const blog = {
+        label: "Blog",
+        title: "Blog Posts",
+        description: `Articles and thoughts by ${person.name}`
+    }
+
+    const work = {
+        label: "Work",
+        title: "Projects",
+        description: `Selected projects by ${person.name}`
+    }
+
+    return {
+        person,
+        newsletter,
+        social,
+        home,
+        about,
+        blog,
+        work
     }
 }
 
-const blog = {
-    label: 'Blog',
-    title: 'Writing about design and tech...',
-    description: `Read what ${person.name} has been up to recently`
-    // Create new blog posts by adding a new .mdx file to app/blog/posts
-    // All posts will be listed on the /blog route
-}
-
-const work = {
-    label: 'Work',
-    title: 'My projects',
-    description: `Design and dev projects by ${person.name}`
-    // Create new project pages by adding a new .mdx file to app/blog/posts
-    // All projects will be listed on the /home and /work routes
-}
-
-const gallery = {
-    label: 'Gallery',
-    title: 'My photo gallery',
-    description: `A photo collection by ${person.name}`,
-    // Images from https://pexels.com
-    images: [
-        { 
-            src: '/images/gallery/img-01.jpg', 
-            alt: 'image',
-            orientation: 'vertical'
-        },
-        { 
-            src: '/images/gallery/img-02.jpg', 
-            alt: 'image',
-            orientation: 'horizontal'
-        },
-        { 
-            src: '/images/gallery/img-03.jpg', 
-            alt: 'image',
-            orientation: 'vertical'
-        },
-        { 
-            src: '/images/gallery/img-04.jpg', 
-            alt: 'image',
-            orientation: 'horizontal'
-        },
-        { 
-            src: '/images/gallery/img-05.jpg', 
-            alt: 'image',
-            orientation: 'horizontal'
-        },
-        { 
-            src: '/images/gallery/img-06.jpg', 
-            alt: 'image',
-            orientation: 'vertical'
-        },
-        { 
-            src: '/images/gallery/img-07.jpg', 
-            alt: 'image',
-            orientation: 'horizontal'
-        },
-        { 
-            src: '/images/gallery/img-08.jpg', 
-            alt: 'image',
-            orientation: 'vertical'
-        },
-        { 
-            src: '/images/gallery/img-09.jpg', 
-            alt: 'image',
-            orientation: 'horizontal'
-        },
-        { 
-            src: '/images/gallery/img-10.jpg', 
-            alt: 'image',
-            orientation: 'horizontal'
-        },
-        { 
-            src: '/images/gallery/img-11.jpg', 
-            alt: 'image',
-            orientation: 'vertical'
-        },
-        { 
-            src: '/images/gallery/img-12.jpg', 
-            alt: 'image',
-            orientation: 'horizontal'
-        },
-        { 
-            src: '/images/gallery/img-13.jpg', 
-            alt: 'image',
-            orientation: 'horizontal'
-        },
-        { 
-            src: '/images/gallery/img-14.jpg', 
-            alt: 'image',
-            orientation: 'horizontal'
-        },
-    ]
-}
-
-export { person, social, newsletter, home, about, blog, work, gallery };
+export const renderContent = () => createContent();

@@ -1,19 +1,20 @@
 import { ImageResponse } from 'next/og'
 import { baseURL, renderContent } from '@/app/resources';
-import { getTranslations } from 'next-intl/server';
+
+// Disable next/image rule since this is for OG images
+/* eslint-disable @next/next/no-img-element */
 
 export const runtime = 'edge';
 
 export async function GET(request: Request) {
-    let url = new URL(request.url)
-    let title = url.searchParams.get('title') || 'Portfolio'
+    const url = new URL(request.url)
+    const title = url.searchParams.get('title') || 'Portfolio'
     const font = fetch(
         new URL('../../../public/fonts/Inter.ttf', import.meta.url)
     ).then((res) => res.arrayBuffer());
     const fontData = await font;
 
-    const t = await getTranslations();
-    const { person } = renderContent(t);
+    const { person } = renderContent();
 
     return new ImageResponse(
         (
@@ -51,7 +52,9 @@ export async function GET(request: Request) {
                             alignItems: 'center',
                             gap: '5rem'
                         }}>
-                        <img src={'https://' + baseURL + person.avatar}
+                        <img 
+                            src={'https://' + baseURL + person.avatar}
+                            alt={`${person.name}'s avatar`}
                             style={{
                                 width: '12rem',
                                 height: '12rem',
@@ -97,7 +100,7 @@ export async function GET(request: Request) {
                     data: fontData,
                     style: 'normal',
                 },
-              ],
+            ],
         }
     )
 }

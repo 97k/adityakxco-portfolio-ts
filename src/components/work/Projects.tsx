@@ -1,17 +1,46 @@
 import { getPosts } from '@/app/utils/utils';
 import { Flex } from '@/once-ui/components';
-
 import { ProjectCard } from '@/components';
+
+interface TeamMember {
+    avatar: string;
+    name: string;
+}
+
+interface Project {
+    slug: string;
+    content: string;
+    metadata: {
+        title: string;
+        publishedAt: string;
+        summary: string;
+        images: string[];
+        image?: string;
+        team?: TeamMember[];
+    };
+}
+
+interface Avatar {
+    src: string;
+}
+
+interface ProjectCardProps {
+    href: string;
+    images: string[];
+    title: string;
+    description: string;
+    content: string;
+    avatars: Avatar[];
+}
 
 interface ProjectsProps {
     range?: [number, number?];
-    locale: string;
 }
 
-export function Projects({ range, locale }: ProjectsProps) {
-    let allProjects = getPosts(['src', 'app', '[locale]', 'work', 'projects', locale]);
+export function Projects({ range }: ProjectsProps) {
+    const allProjects = getPosts(['src', 'app', 'work', 'projects', 'content']) as Project[];
 
-    const sortedProjects = allProjects.sort((a, b) => {
+    const sortedProjects = allProjects.sort((a: Project, b: Project) => {
         return new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime();
     });
 
@@ -23,15 +52,15 @@ export function Projects({ range, locale }: ProjectsProps) {
         <Flex
             fillWidth gap="xl" marginBottom="40" paddingX="l"
             direction="column">
-            {displayedProjects.map((post) => (
+            {displayedProjects.map((project: Project) => (
                 <ProjectCard
-                    key={post.slug}
-                    href={`work/${post.slug}`}
-                    images={post.metadata.images}
-                    title={post.metadata.title}
-                    description={post.metadata.summary}
-                    content={post.content}
-                    avatars={post.metadata.team?.map((member) => ({ src: member.avatar })) || []}/>
+                    key={project.slug}
+                    href={`work/${project.slug}`}
+                    images={project.metadata.images}
+                    title={project.metadata.title}
+                    description={project.metadata.summary}
+                    content={project.content}
+                    avatars={project.metadata.team?.map((member: TeamMember) => ({ src: member.avatar })) || []}/>
             ))}
         </Flex>
     );
