@@ -4,8 +4,20 @@ import { Flex, Heading, SmartImage, SmartLink, Tag, Text } from '@/once-ui/compo
 import styles from './Posts.module.scss';
 import { formatDate } from '@/app/utils/formatDate';
 
+interface BlogPost {
+    slug: string;
+    content: string;
+    metadata: {
+        title: string;
+        publishedAt: string;
+        summary: string;
+        image?: string;
+        tag?: string;
+    };
+}
+
 interface PostProps {
-    post: any;
+    post: BlogPost;
     thumbnail: boolean;
 }
 

@@ -7,7 +7,7 @@ const createContent = () => {
         get name() {
             return `${this.firstName} ${this.lastName}`;
         },
-        role: "Software Engineer",
+        role: "AI Solutions Architect",
         avatar: '/images/avatar.jpg',
         location: 'Asia/Kolkata',
         languages: ['English', 'Hindi']
@@ -33,7 +33,7 @@ const createContent = () => {
         {
             name: 'X',
             icon: 'x',
-            link: 'https://x.com/think_ad',
+            link: 'https://x.com/adityakxco',
         },
         {
             name: 'Email',
@@ -45,15 +45,16 @@ const createContent = () => {
     const home = {
         label: "Home",
         title: `Hi, I&apos;m ${person.name}`,
-        description: `I&apos;m a ${person.role} based in India`,
-        headline: <>Building digital products with a focus on user experience</>,
-        subline: <>Passionate about creating intuitive and impactful solutions</>
+        description: `I&apos;m an ${person.role} based in India`,
+        headline: <>I design AI-powered systems that just work</>,
+        subline: <>Leveraging Technology to Solve Real-World Problems Thoughtfully</>
     }
 
     const about = {
         label: "About",
         title: "About",
-        description: `I&apos;m ${person.name}, a ${person.role} based in ${person.location}`,
+        description: `I&apos;m ${person.name}, an ${person.role} based in ${person.location}`,
+        // description: <>I believes in the power of simplicity. My passion is building AI that works for people, not just algorithms.</>,
         tableOfContent: {
             display: true,
             subItems: true
@@ -68,29 +69,50 @@ const createContent = () => {
         intro: {
             display: true,
             title: "Introduction",
-            description: <>I&apos;m a software engineer with a passion for building great products. I focus on creating intuitive user experiences and scalable solutions.</>
+            description: <>I believe in the power of simplicity. My passion is building AI that works for people, not just algorithms.</>
         },
         work: {
             display: true,
             title: "Work Experience",
             experiences: [
                 {
-                    company: 'TaskHuman',
-                    timeframe: "2022 - Present",
-                    role: "Senior Software Engineer",
+                    company: 'TaskHuman India',
+                    timeframe: "2022 - 2025",
+                    role: "Data Scientist and Architect",
                     achievements: [
-                        "Led development of key platform features",
-                        "Improved application performance by 40%",
-                        "Implemented real-time communication features"
+                        "AI Concierge (In Progress): Currently building an AI agent using state machines to manage conversational user requests efficiently.",
+                        "Search System: Designed and implemented a search system powered by Elasticsearch and sentence embeddings, enabling semantic similarity to deliver relevant results for freeform user queries",
+                        "Streamlined releases by integrating Poetry for dependency management and developing a custom CLI tool to automate image pushes to AWS ECR, simplifying the process for the team",
+                        "Redeployed the data science architecture on AWS ECS, containerizing APIs and introducing Infrastructure as Code (IaC) using AWS CDK in Python.",
+                        "Enhanced coding standards with Slack alerts, proper logging, and Makefile usage; developed sentiment analysis tools and custom automation scripts to support team workflows.",
                     ],
                     images: [
-                        {
-                            src: '/images/projects/project-01/cover-01.jpg',
-                            alt: 'Once UI Project',
-                            width: 16,
-                            height: 9
-                        }
-                    ]
+                        // {
+                        //     src: '/images/projects/project-01/cover-01.jpg',
+                        //     alt: 'Once UI Project',
+                        //     width: 16,
+                        //     height: 9
+                        // }
+                    ],
+                    files: []
+                },
+                {
+                    company: 'MoreYeahs',
+                    timeframe: "2021 - 2022",
+                    role: "Software Engineer",
+                    achievements: [
+                        "Contributed to security compliance by encrypting all traffic and securing APIs behind authentication layers.",
+                        "Improved application performance by 40%",
+                        "Improved code quality by adopting a modular architecture (e.g., MVC) and reducing redundancy through an in-house, installable Python library shared across APIs"
+                    ],
+                    images: []
+                    //     {
+                    //         src: '/images/projects/project-01/cover-01.jpg',
+                    //         alt: 'Once UI Project',
+                    //         width: 16,
+                    //         height: 9
+                    //     }
+                    // ]
                 },
                 {
                     company: 'NeuroEquilibrium',
@@ -101,6 +123,13 @@ const createContent = () => {
                         "Implemented telemedicine features",
                         "Optimized data processing pipelines"
                     ],
+                    files: [
+                        {
+                            name: "Diagnostic Report Sample",
+                            path: "/files/workex_neuro_report.pdf",
+                            type: "pdf"
+                        }
+                    ],
                     images: []
                 },
                 {
@@ -109,10 +138,30 @@ const createContent = () => {
                     role: "Software Engineer",
                     achievements: [
                         "Built enterprise solutions",
-                        "Implemented cloud infrastructure",
-                        "Developed data analytics tools"
+                        "Built deep learning models to detect and summarize car damage (e.g., dents, scratches, broken parts) from images.",
+                        "Developed classical machine learning models to identify employees at risk of attrition, supporting HR decision-making.",
+                        "Developed app using pytesseract to extract text from images."
                     ],
-                    images: []
+                    images: [],
+                    files: []
+                },
+                {
+                    company: 'Fossasia',
+                    timeframe: "2017 - 2018",
+                    role: "Open Source Contributor",
+                    achievements: [
+                        "Contributed to the development of the Phimpme photo editor Android app.",
+                        "Participated in discussions and promoted open source projects in college events.",
+                    ],
+                    images: [
+                        {
+                            src: '/images/workex/fossasia_1.jpg',
+                            alt: 'Fun chat with Fossasia people',
+                            width: 16,
+                            height: 9
+                        }
+                    ],
+                    files: []
                 }
             ]
         },
@@ -121,16 +170,47 @@ const createContent = () => {
             title: "Technical Skills",
             skills: [
                 {
-                    title: 'Next.js',
-                    description: <>Expert in building modern web applications with Next.js, focusing on performance and SEO</>,
+                    title: 'Python',
+                    description: <>Expert in building scalable AI systems, automating workflows, and creating data-driven solutions</>,
+                    files: [],
                     images: [
-                        {
-                            src: '/images/projects/project-01/cover-04.jpg',
-                            alt: 'Project image',
-                            width: 16,
-                            height: 9
-                        },
+                        // {
+                        //     src: '/images/projects/project-01/cover-04.jpg',
+                        //     alt: 'Project image',
+                        //     width: 16,
+                        //     height: 9
+                        // },
                     ]
+                },
+                {
+                    title: 'AI & Machine Learning',
+                    description: <>Designs intelligent systems through finetuning, evaluations, and hybrid search, enabling advanced search capabilities, intuitive user experiences, and conversational AI agents.</>,
+                    files: [],
+                    images: []
+                },
+                {
+                    title: 'Cloud & DevOps',
+                    description: <>Orchestrates scalable deployments on AWS (ECS, ECR, CDK), leveraging Docker and Infrastructure as Code to build resilient, automated cloud architectures.</>,
+                    files: [],
+                    images: []
+                },
+                {
+                    title: 'Architecture & Design',
+                    description: <>Crafts modular architectures (MVC), state machines, and APIs to ensure scalability, maintainability, and efficiency in AI-driven solutions.</>,
+                    files: [],
+                    images: []
+                },
+                {
+                    title: 'Automation & Tools',
+                    description: <>Streamlines development pipelines using dependency management tools like uv and Poetry, custom CLI tools, Makefiles, Slack alerts, advanced logging, and microservices to boost team productivity and operational excellence.</>,
+                    files: [],
+                    images: []
+                },
+                {
+                    title: 'Data & Analysis',
+                    description: <>Harnesses Elasticsearch, sentiment analysis, and computer vision to deliver data-driven solutions that enhance search accuracy and uncover insights.</>,
+                    files: [],
+                    images: []
                 }
             ]
         },
@@ -153,7 +233,7 @@ const createContent = () => {
     const blog = {
         label: "Blog",
         title: "Blog Posts",
-        description: `Articles and thoughts by ${person.name}`
+        description: `Discover my latest experiments, fun lessons, and insights from building in public—where I share the highs, lows, and everything I learn along the way.`
     }
 
     const work = {

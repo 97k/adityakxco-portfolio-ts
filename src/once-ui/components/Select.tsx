@@ -11,7 +11,6 @@ interface SelectProps extends Omit<InputProps, 'onSelect' | 'value'> {
     value: string;
     style?: React.CSSProperties;
     onSelect: (option: DropdownOptions) => void;
-    renderDropdownOptions?: (option: DropdownOptions) => React.ReactNode;
     renderCustomDropdownContent?: () => React.ReactNode;
 }
 
@@ -20,7 +19,6 @@ const Select = forwardRef<HTMLDivElement, SelectProps>(({
     value,
     style,
     onSelect,
-    renderDropdownOptions,
     renderCustomDropdownContent,
     ...inputProps
 }, ref) => {

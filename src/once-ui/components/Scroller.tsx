@@ -5,13 +5,12 @@ import classNames from 'classnames';
 import { Flex, IconButton } from '.';
 import styles from './Scroller.module.scss';
 
-interface ScrollerProps {
+interface ScrollerProps extends React.HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode;
     direction?: 'row' | 'column';
     contained?: boolean;
     className?: string;
     style?: React.CSSProperties;
-    [key: string]: any;
 }
 
 const Scroller: React.FC<ScrollerProps> = ({

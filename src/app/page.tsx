@@ -8,9 +8,8 @@ import { Mailchimp } from '@/components';
 import { Posts } from '@/components/blog/Posts';
 
 export async function generateMetadata(
-	{params: {locale}}: { params: { locale: string }}
+	{}: { params: { locale: string }}
 ) {
-	// const t = await getTranslations();
     const { home } = renderContent();
     const title = home.title;
     const description = home.description;

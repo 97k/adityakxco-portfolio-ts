@@ -1,7 +1,10 @@
-import { Avatar, Button, Flex, Heading, Icon, IconButton, SmartImage, Tag, Text } from '@/once-ui/components';
+import { Avatar, Button, Flex, Heading, Icon, IconButton, Tag, Text } from '@/once-ui/components';
 import { baseURL, renderContent } from '@/app/resources';
 import TableOfContents from '@/components/about/TableOfContents';
 import styles from '@/components/about/about.module.scss'
+import FileDisplay from '@/components/FileDisplay';
+import ImageDisplay from '@/components/ImageDisplay';
+import { AboutContent } from '@/types/content';
 
 export async function generateMetadata(
     {params: {locale}}: { params: { locale: string }}
@@ -40,26 +43,28 @@ export default function About(
     { params: {locale}}: { params: { locale: string }}
 ) {
     const {person, about, social } = renderContent();
+    const aboutContent = about as AboutContent;
+    
     const structure = [
         { 
-            title: about.intro.title,
-            display: about.intro.display,
+            title: aboutContent.intro.title,
+            display: aboutContent.intro.display,
             items: []
         },
         { 
-            title: about.work.title,
-            display: about.work.display,
-            items: about.work.experiences.map(experience => experience.company)
+            title: aboutContent.work.title,
+            display: aboutContent.work.display,
+            items: aboutContent.work.experiences.map(experience => experience.company)
         },
         { 
-            title: about.studies.title,
-            display: about.studies.display,
-            items: about.studies.institutions.map(institution => institution.name)
+            title: aboutContent.studies.title,
+            display: aboutContent.studies.display,
+            items: aboutContent.studies.institutions.map(institution => institution.name)
         },
         { 
-            title: about.technical.title,
-            display: about.technical.display,
-            items: about.technical.skills.map(skill => skill.title)
+            title: aboutContent.technical.title,
+            display: aboutContent.technical.display,
+            items: aboutContent.technical.skills.map(skill => skill.title)
         },
     ]
     return (
@@ -75,7 +80,7 @@ export default function About(
                         '@type': 'Person',
                         name: person.name,
                         jobTitle: person.role,
-                        description: about.intro.description,
+                        description: aboutContent.intro.description,
                         url: `https://${baseURL}/about`,
                         image: `${baseURL}/images/${person.avatar}`,
                         sameAs: social
@@ -83,12 +88,12 @@ export default function About(
                             .map((item) => item.link),
                         worksFor: {
                             '@type': 'Organization',
-                            name: about.work.experiences[0].company || ''
+                            name: aboutContent.work.experiences[0]?.company || ''
                         },
                     }),
                 }}
             />
-            { about.tableOfContent.display && (
+            { aboutContent.tableOfContent.display && (
                 <Flex
                     style={{ left: '0', top: '50%', transform: 'translateY(-50%)' }}
                     position="fixed"
@@ -96,13 +101,13 @@ export default function About(
                     direction="column" hide="s">
                     <TableOfContents
                         structure={structure}
-                        about={about} />
+                        about={aboutContent} />
                 </Flex>
             )}
             <Flex
                 fillWidth
                 mobileDirection="column" justifyContent="center">
-                { about.avatar.display && (
+                { aboutContent.avatar.display && (
                     <Flex
                         minWidth="160" paddingX="l" paddingBottom="xl" gap="m"
                         flex={3} direction="column" alignItems="center">
@@ -136,11 +141,11 @@ export default function About(
                     className={styles.blockAlign}
                     fillWidth flex={9} maxWidth={40} direction="column">
                     <Flex
-                        id={about.intro.title}
+                        id={aboutContent.intro.title}
                         fillWidth minHeight="160"
                         direction="column" justifyContent="center"
                         marginBottom="32">
-                        {about.calendar.display && (
+                        {aboutContent.calendar.display && (
                             <Flex
                                 className={styles.blockAlign}
                                 style={{
@@ -161,7 +166,7 @@ export default function About(
                                     Schedule a call
                                 </Flex>
                                 <IconButton
-                                    href={about.calendar.link}
+                                    href={aboutContent.calendar.link}
                                     data-border="rounded"
                                     variant="tertiary"
                                     icon="chevronRight"/>
@@ -197,28 +202,28 @@ export default function About(
                         )}
                     </Flex>
 
-                    { about.intro.display && (
+                    { aboutContent.intro.display && (
                         <Flex
                             direction="column"
                             textVariant="body-default-l"
                             fillWidth gap="m" marginBottom="xl">
-                            {about.intro.description}
+                            {aboutContent.intro.description}
                         </Flex>
                     )}
 
-                    { about.work.display && (
+                    { aboutContent.work.display && (
                         <>
                             <Heading
                                 as="h2"
-                                id={about.work.title}
+                                id={aboutContent.work.title}
                                 variant="display-strong-s"
                                 marginBottom="m">
-                                {about.work.title}
+                                {aboutContent.work.title}
                             </Heading>
                             <Flex
                                 direction="column"
                                 fillWidth gap="l" marginBottom="40">
-                                {about.work.experiences.map((experience, index) => (
+                                {aboutContent.work.experiences.map((experience, index) => (
                                     <Flex
                                         key={`${experience.company}-${experience.role}-${index}`}
                                         fillWidth
@@ -248,7 +253,7 @@ export default function About(
                                         <Flex
                                             as="ul"
                                             direction="column" gap="16">
-                                            {experience.achievements.map((achievement: string, index: any) => (
+                                            {experience.achievements.map((achievement, index) => (
                                                 <Text
                                                     as="li"
                                                     variant="body-default-m"
@@ -257,26 +262,11 @@ export default function About(
                                                 </Text>
                                             ))}
                                         </Flex>
+                                        {experience.files && (
+                                            <FileDisplay files={experience.files} title="Related Documents" />
+                                        )}
                                         {experience.images.length > 0 && (
-                                            <Flex
-                                                fillWidth paddingTop="m" paddingLeft="40"
-                                                wrap>
-                                                {experience.images.map((image, index) => (
-                                                    <Flex
-                                                        key={index}
-                                                        border="neutral-medium"
-                                                        borderStyle="solid-1"
-                                                        radius="m"
-                                                        minWidth={image.width} height={image.height}>
-                                                        <SmartImage
-                                                            enlarge
-                                                            radius="m"
-                                                            sizes={image.width.toString()}
-                                                            alt={image.alt}
-                                                            src={image.src}/>
-                                                    </Flex>
-                                                ))}
-                                            </Flex>
+                                            <ImageDisplay images={experience.images} paddingLeft="40" />
                                         )}
                                     </Flex>
                                 ))}
@@ -284,19 +274,19 @@ export default function About(
                         </>
                     )}
 
-                    { about.studies.display && (
+                    { aboutContent.studies.display && (
                         <>
                             <Heading
                                 as="h2"
-                                id={about.studies.title}
+                                id={aboutContent.studies.title}
                                 variant="display-strong-s"
                                 marginBottom="m">
-                                {about.studies.title}
+                                {aboutContent.studies.title}
                             </Heading>
                             <Flex
                                 direction="column"
                                 fillWidth gap="l" marginBottom="40">
-                                {about.studies.institutions.map((institution, index) => (
+                                {aboutContent.studies.institutions.map((institution, index) => (
                                     <Flex
                                         key={`${institution.name}-${index}`}
                                         fillWidth gap="4"
@@ -311,26 +301,29 @@ export default function About(
                                             onBackground="neutral-weak">
                                             {institution.description}
                                         </Text>
+                                        {institution.files && (
+                                            <FileDisplay files={institution.files} title="Academic Documents" />
+                                        )}
                                     </Flex>
                                 ))}
                             </Flex>
                         </>
                     )}
 
-                    { about.technical.display && (
+                    { aboutContent.technical.display && (
                         <>
                             <Heading
                                 as="h2"
-                                id={about.technical.title}
+                                id={aboutContent.technical.title}
                                 variant="display-strong-s" marginBottom="40">
-                                {about.technical.title}
+                                {aboutContent.technical.title}
                             </Heading>
                             <Flex
                                 direction="column"
                                 fillWidth gap="l">
-                                {about.technical.skills.map((skill, index) => (
+                                {aboutContent.technical.skills.map((skill, index) => (
                                     <Flex
-                                        key={`${skill}-${index}`}
+                                        key={`${skill.title}-${index}`}
                                         fillWidth gap="4"
                                         direction="column">
                                         <Text
@@ -342,26 +335,11 @@ export default function About(
                                             onBackground="neutral-weak">
                                             {skill.description}
                                         </Text>
+                                        {skill.files && (
+                                            <FileDisplay files={skill.files} title="Technical Resources" />
+                                        )}
                                         {skill.images.length > 0 && (
-                                            <Flex
-                                                fillWidth paddingTop="m" gap="12"
-                                                wrap>
-                                                {skill.images.map((image, index) => (
-                                                    <Flex
-                                                        key={index}
-                                                        border="neutral-medium"
-                                                        borderStyle="solid-1"
-                                                        radius="m"
-                                                        minWidth={image.width} height={image.height}>
-                                                        <SmartImage
-                                                            enlarge
-                                                            radius="m"
-                                                            sizes={image.width.toString()}
-                                                            alt={image.alt}
-                                                            src={image.src}/>
-                                                    </Flex>
-                                                ))}
-                                            </Flex>
+                                            <ImageDisplay images={skill.images} />
                                         )}
                                     </Flex>
                                 ))}

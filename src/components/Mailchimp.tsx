@@ -3,16 +3,8 @@
 import { mailchimp } from '@/app/resources'
 import { Button, Flex, Heading, Input, Text, Background } from '@/once-ui/components';
 import { useState } from 'react';
+// import { BackgroundProps } from '@/once-ui/components/Background';
 // import { useTranslations } from 'next-intl';
-
-
-function debounce<T extends (...args: any[]) => void>(func: T, delay: number): T {
-    let timeout: ReturnType<typeof setTimeout>;
-    return ((...args: Parameters<T>) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func(...args), delay);
-    }) as T;
-}
 
 type NewsletterProps = {
     display: boolean;
@@ -26,8 +18,6 @@ export const Mailchimp = (
     const [email, setEmail] = useState<string>('');
     const [error, setError] = useState<string>('');
     const [touched, setTouched] = useState<boolean>(false);
-
-    // const t = useTranslations();
 
     const validateEmail = (email: string): boolean => {
         if (email === '') {
@@ -49,6 +39,17 @@ export const Mailchimp = (
         }
     };
 
+    function debounce<T extends (...args: any[]) => void>(
+        func: T,
+        delay: number
+    ): (...args: Parameters<T>) => void {
+        let timeout: ReturnType<typeof setTimeout>;
+        return (...args: Parameters<T>) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func(...args), delay);
+        };
+    }
+
     const debouncedHandleChange = debounce(handleChange, 2000);
 
     const handleBlur = () => {
@@ -62,15 +63,15 @@ export const Mailchimp = (
         <Flex
             style={{overflow: 'hidden'}}
             position="relative"
-            fillWidth padding="xl"  radius="l" marginBottom="m"
+            fillWidth padding="xl" radius="l" marginBottom="m"
             direction="column" alignItems="center" align="center"
             background="surface" border="neutral-medium" borderStyle="solid-1">
             <Background
                 position="absolute"
-                mask={mailchimp.effects.mask as any}
-                gradient={mailchimp.effects.gradient as any}
-                dots={mailchimp.effects.dots as any}
-                lines={mailchimp.effects.lines as any}/>
+                mask={mailchimp.effects.mask}
+                gradient={mailchimp.effects.gradient}
+                dots={mailchimp.effects.dots}
+                lines={mailchimp.effects.lines}/>
             <Heading style={{position: 'relative'}}
                 marginBottom="s"
                 variant="display-strong-xs">
@@ -130,10 +131,11 @@ export const Mailchimp = (
                             height="48" alignItems="center">
                             <Button
                                 id="mc-embedded-subscribe"
+                                type="submit"
                                 value="Subscribe"
                                 size="m"
                                 fillWidth>
-                                {"newsletter.button"}
+                                Subscribe
                             </Button>
                         </Flex>
                     </div>
