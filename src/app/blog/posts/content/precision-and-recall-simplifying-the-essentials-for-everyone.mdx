@@ -1,0 +1,91 @@
+---
+title: "Precision and Recall: Simplifying the Essentials for Everyone"
+publishedAt: "2024-03-16"
+image: "/images/blogs/flying_plain.webp"
+summary: "A simplified explanation of precision and recall metrics in machine learning, using clear language and practical examples to make these concepts accessible to everyone."
+tag: "Machine Learning"
+---
+
+Isn't it funny how the simplest things can be the most perplexing? I used to struggle with this topic a lot. Even after checking out various resources, I still found myself confused if I didn't keep revisiting it. That's why I decided to write this blog post — to break it down in the simplest way possible, using clear language without any jargon to make sure it's easy for everyone to understand.
+
+![Data scientist analyzing performance metrics](/images/blogs/flying_plain.webp)
+*Photo by Curioso Photography on Unsplash*
+
+All you really need to grasp is **one fundamental concept**, and once you do, it'll stick with you forever.
+
+Let's start by framing our discussion properly. How about we use the example of predicting cancer?
+
+Imagine we've built an algorithm that tries to guess whether someone has cancer or not based on certain factors. Situations like this, where the data is unbalanced or skewed, are where we focus more on precision-recall metrics rather than just looking at overall accuracy or mean absolute error (MAE).
+
+Here's a simplified example: If we always predict "0" (meaning "no cancer") for any early signs of a medical condition, we might achieve an accuracy rate of over 95% most of the time!
+
+You'll come across formulas everywhere, but my goal with this blog is for those formulas to make sense to you every time you encounter them.
+
+So, let's start by looking at the matrix.
+
+![Confusion Matrix Visualization](/images/blogs/confusion_matrix.webp)
+*Image showing the basic structure of a confusion matrix*
+
+and also the formulas
+
+![Precision and Recall Formulas](/images/blogs/precision_recall_calc.webp)
+*Basic formulas for calculating precision and recall*
+
+## Precision
+
+Precision or precisely or **how precisely** model is making the correct predictions. It measures the number of correct predictions made by the model out of all the positive predictions it generated.
+
+If model has made 100 positive predictions, out of those predictions some would be actually right, that is True Positive, some of those would be what model said right but is actually wrong, but since model called them positive, therefore they are known as False Positive. Hence
+
+![Precision Formula Visualization](/images/blogs/precision_formula.webp)
+*Visual representation of precision calculation*
+
+**Precision increases when we raise our model threshold, because if we raise the threshold, only those outputs would be chosen for which model is sure**
+
+> Higher we take our threshold, precision increases, as higher number of false negatives increases
+
+## Recall
+
+Recall as the name suggests re-call, refers to how many positive examples in our dataset the **model can recall** correctly.
+
+A false negative is when the model labels an example as negative, but it's actually a positive example.
+
+> All Positive points in dataset would then be defined as
+> 
+> True Positive + False Negative
+
+Therefore, recall is the proportion of positive predictions made by the model compared to all positive examples, indicating how many examples the model successfully recalled from the total positive examples. Hence
+
+![Recall Formula Visualization](/images/blogs/recall_formula.webp)
+*Visual representation of recall calculation*
+
+If we focus on maximum recall, model will start predicting more false positives.
+
+# When is what important?
+
+## When is recall important?
+
+If you adjust the probability threshold, you'll notice a balance between precision and recall, where improving one leads to a decrease in the other. As a data scientist, you'll frequently face the decision of prioritizing either better precision or better recall based on your model's intended use.
+
+In the context of the COVID-19 pandemic, you're developing a model to determine whether an individual has COVID-19 or not. This is a critical scenario with high sensitivity attached to it. It's crucial that our model avoids generating false positives because if it wrongly predicts someone as having COVID-19 when they don't, it could significantly impact the healthcare system, leading to unnecessary hospital visits and strain on resources.
+
+In such scenarios, we aim for a model with high recall. This means that our model accurately identifies individuals who have COVID-19, ensuring they receive immediate and appropriate care.
+
+## When is precision important?
+
+Precision becomes crucial in situations where the accuracy of your predictions needs to be top-notch, especially when the cost of false positives is significant.
+
+For instance, imagine you've developed an algorithm that predicts whether a business can be bought and sold for a profit. Let's say every successful trade earns you around $100, but every unsuccessful trade results in a loss of about $200.
+
+In this scenario, **you want your predictions to be highly accurate**. While you might accept losses on businesses flagged as negative by your algorithm, you want to ensure that any business it identifies as positive is indeed a profitable deal. Therefore, the algorithm needs to prioritize high precision, meaning it should generate more true positives and minimize false positives.
+
+## General Scenario or F1-Score
+
+In general scenario, generally in case of skewed datasets, when we have multiple models, some model will have more precision some has more recall, to compare which model we should use, we come up with a **harmonic mean** of both precision and recall, which is known as the F1-Score
+
+> We want our model that performs well on both precision and recall, if it does well on either of one, then that model should be avoided.
+
+![F1-Score Formula and Visualization](/images/blogs/f1score_formula.webp)
+*P (precision) R(recall) - Visualization of F1-Score calculation*
+
+A helpful rule of thumb for knowing when to **prioritise recall** is when your classifier's objective is to **detect something negative or undesirable**, such as cancer or identity theft. Failing to identify these negative instances can have severe repercussions. Therefore, in such detection tasks, the aim is to maximize the recall rate as much as possible. 

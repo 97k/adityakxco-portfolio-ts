@@ -68,16 +68,21 @@ function createImage({ alt, src, ...props }: SmartImageProps & { src: string }) 
         return null;
     }
 
+    // If alt starts with *, it's a caption
+    const isCaption = alt?.startsWith('*');
+    const imageAlt = isCaption ? alt.substring(1) : alt;
+
     return (
         <SmartImage
             className="my-20"
             enlarge
             radius="m"
             aspectRatio="16 / 9"
-            alt={alt}
+            alt={imageAlt}
             src={src}
-            {...props}/>
-        )
+            {...props}
+        />
+    );
 }
 
 function slugify(str: string): string {
