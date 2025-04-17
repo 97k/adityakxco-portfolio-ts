@@ -107,39 +107,9 @@ export default function About(
             <Flex
                 fillWidth
                 mobileDirection="column" justifyContent="center">
-                { aboutContent.avatar.display && (
-                    <Flex
-                        minWidth="160" paddingX="l" paddingBottom="xl" gap="m"
-                        flex={3} direction="column" alignItems="center">
-                        <Avatar
-                            src={person.avatar}
-                            size="xl"/>
-                        <Flex
-                            gap="8"
-                            alignItems="center">
-                            <Icon
-                                onBackground="accent-weak"
-                                name="globe"/>
-                            {person.location}
-                        </Flex>
-                        { person.languages.length > 0 && (
-                            <Flex
-                                wrap
-                                gap="8">
-                                {person.languages.map((language, index) => (
-                                    <Tag
-                                        key={index}
-                                        size="l">
-                                        {language}
-                                    </Tag>
-                                ))}
-                            </Flex>
-                        )}
-                    </Flex>
-                )}
                 <Flex
                     className={styles.blockAlign}
-                    fillWidth flex={9} maxWidth={40} direction="column">
+                    fillWidth maxWidth={40} direction="column">
                     <Flex
                         id={aboutContent.intro.title}
                         fillWidth minHeight="160"
@@ -172,34 +142,78 @@ export default function About(
                                     icon="chevronRight"/>
                             </Flex>
                         )}
-                        <Heading
-                            className={styles.textAlign}
-                            variant="display-strong-xl">
-                            {person.name}
-                        </Heading>
-                        <Text
-                            className={styles.textAlign}
-                            variant="display-default-xs"
-                            onBackground="neutral-weak">
-                            {person.role}
-                        </Text>
-                        {social.length > 0 && (
+                        
+                        <Flex
+                            fillWidth
+                            justifyContent="space-between"
+                            alignItems="flex-start"
+                            wrap
+                            gap="16">
                             <Flex
-                                className={styles.blockAlign}
-                                paddingTop="20" paddingBottom="8" gap="8" wrap>
-                                {social.map((item) => (
-                                    item.link && (
-                                        <Button
-                                            key={item.name}
-                                            href={item.link}
-                                            prefixIcon={item.icon}
-                                            label={item.name}
-                                            size="s"
-                                            variant="tertiary"/>
-                                    )
-                                ))}
+                                direction="column"
+                                gap="8">
+                                <Heading
+                                    className={styles.textAlign}
+                                    variant="display-strong-xl">
+                                    {person.name}
+                                </Heading>
+                                <Text
+                                    className={styles.textAlign}
+                                    variant="display-default-xs"
+                                    onBackground="neutral-weak">
+                                    {person.role}
+                                </Text>
+                                
+                                {social.length > 0 && (
+                                    <Flex
+                                        className={styles.blockAlign}
+                                        paddingTop="12" gap="8" wrap>
+                                        {social.map((item) => (
+                                            item.link && (
+                                                <Button
+                                                    key={item.name}
+                                                    href={item.link}
+                                                    prefixIcon={item.icon}
+                                                    label={item.name}
+                                                    size="s"
+                                                    variant="tertiary"/>
+                                            )
+                                        ))}
+                                    </Flex>
+                                )}
                             </Flex>
-                        )}
+                            
+                            {aboutContent.avatar.display && (
+                                <Flex
+                                    direction="column" gap="12" alignItems="center">
+                                    <Avatar
+                                        src={person.avatar}
+                                        size="xl"/>
+                                    <Flex
+                                        gap="8"
+                                        alignItems="center">
+                                        <Icon
+                                            onBackground="accent-weak"
+                                            name="globe"/>
+                                        {person.location}
+                                    </Flex>
+                                    {person.languages.length > 0 && (
+                                        <Flex
+                                            wrap
+                                            gap="8"
+                                            justifyContent="center">
+                                            {person.languages.map((language, index) => (
+                                                <Tag
+                                                    key={index}
+                                                    size="l">
+                                                    {language}
+                                                </Tag>
+                                            ))}
+                                        </Flex>
+                                    )}
+                                </Flex>
+                            )}
+                        </Flex>
                     </Flex>
 
                     { aboutContent.intro.display && (

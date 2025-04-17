@@ -63,7 +63,7 @@ export function generateMetadata({ params: { slug } }: BlogParams) {
 }
 
 export default async function Blog({ params }: BlogParams) {
-    const post = getPosts(['src', 'app', 'blog', 'posts']).find((post) => post.slug === params.slug)
+    const post = getPosts(['src', 'app', 'blog', 'posts', 'content']).find((post) => post.slug === params.slug)
 
     if (!post) {
         notFound()

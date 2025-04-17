@@ -10,7 +10,7 @@ const createContent = () => {
         role: "AI Solutions Architect",
         avatar: '/images/avatar.jpg',
         location: 'Asia/Kolkata',
-        languages: ['English', 'Hindi']
+        languages: []
     }
 
     const newsletter = {
@@ -44,8 +44,8 @@ const createContent = () => {
 
     const home = {
         label: "Home",
-        title: `Hi, I&apos;m ${person.name}`,
-        description: `I&apos;m an ${person.role} based in India`,
+        title: `adityakx.co`,
+        description: `I’m Aditya K, an AI Solutions Architect building scalable AI systems and automation solutions—discover my projects like Sweat, insights on AI agents, and hire me for freelancing or consultancy.`,
         headline: <>I design AI-powered systems that just work</>,
         subline: <>Leveraging Technology to Solve Real-World Problems Thoughtfully</>
     }
@@ -219,7 +219,7 @@ const createContent = () => {
             title: "Education",
             institutions: [
                 {
-                    name: "Jaipur Engineering College and Research Centre",
+                    name: "JECRC, Jaipur",
                     description: "Bachelor of Technology in Computer Science (2016-2020)",
                 },
                 {
