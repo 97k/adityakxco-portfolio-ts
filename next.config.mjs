@@ -8,13 +8,13 @@ const withMDX = mdx({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
-    output: 'standalone',
+    output: 'export',
     poweredByHeader: false,
     reactStrictMode: true,
     swcMinify: true,
     compress: true,
     experimental: {
-        optimizeCss: true
+        optimizeCss: false
     },
     images: {
         domains: ['localhost'],

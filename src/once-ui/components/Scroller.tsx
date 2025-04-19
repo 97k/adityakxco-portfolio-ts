@@ -11,6 +11,7 @@ interface ScrollerProps extends React.HTMLAttributes<HTMLDivElement> {
     contained?: boolean;
     className?: string;
     style?: React.CSSProperties;
+    gap?: string;
 }
 
 const Scroller: React.FC<ScrollerProps> = ({
@@ -19,6 +20,7 @@ const Scroller: React.FC<ScrollerProps> = ({
     contained = false,
     className,
     style,
+    gap,
     ...props
 }) => {
     const scrollerRef = useRef<HTMLDivElement>(null);
@@ -90,6 +92,7 @@ const Scroller: React.FC<ScrollerProps> = ({
             )}
             <Flex
                 fillWidth
+                gap={gap}
                 ref={scrollerRef}
                 className={classNames(styles.scroller, {
                     [styles.row]: direction === 'row',

@@ -17,6 +17,7 @@ interface Project {
         images: string[];
         image?: string;
         team?: TeamMember[];
+        label?: string;
     };
 }
 
@@ -31,6 +32,7 @@ interface ProjectCardProps {
     description: string;
     content: string;
     avatars: Avatar[];
+    label: string;
 }
 
 interface ProjectsProps {
@@ -60,6 +62,7 @@ export function Projects({ range }: ProjectsProps) {
                     title={project.metadata.title}
                     description={project.metadata.summary}
                     content={project.content}
+                    label={project.metadata.label || "Read Case Study"}
                     avatars={project.metadata.team?.map((member: TeamMember) => ({ src: member.avatar })) || []}/>
             ))}
         </Flex>

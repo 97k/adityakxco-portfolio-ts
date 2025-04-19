@@ -115,7 +115,9 @@ const Carousel: React.FC<CarouselProps> = ({
                             ))}
                         </Flex>
                     ) : (
-                        <Scroller fillWidth gap="4">
+                        <Scroller 
+                            style={{ width: '100%' }}
+                            gap="4">
                             {images.map((image, index) => (
                                 <Flex
                                     key={index}
