@@ -20,7 +20,7 @@ export interface MaskOptions {
     bottomRight: 'bottomRight';
 }
 
-type MaskType = keyof MaskOptions;
+type MaskType = keyof MaskOptions | 'none' | 'cursor' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'| string;
 
 export interface BackgroundProps {
     position?: CSSProperties['position'];

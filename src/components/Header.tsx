@@ -1,25 +1,18 @@
 "use client";
 
-import { useParams } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { Flex, ToggleButton } from "@/once-ui/components"
 import styles from '@/components/Header.module.scss'
-
 import { routes, display } from '@/app/resources'
-
-import { routing } from '@/i18n/routing';
-import { Locale, usePathname, useRouter } from '@/i18n/routing';
 import { renderContent } from "@/app/resources";
-import { useTranslations } from "next-intl";
-import { i18n } from "@/app/resources/config";
 
 type TimeDisplayProps = {
     timeZone: string;
-    locale?: string;  // Optionally allow locale, defaulting to 'en-GB'
 };
 
-const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone, locale = 'en-GB' }) => {
+const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone }) => {
     const [currentTime, setCurrentTime] = useState('');
 
     useEffect(() => {
@@ -32,7 +25,7 @@ const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone, locale = 'en-GB' })
                 second: '2-digit',
                 hour12: false,
             };
-            const timeString = new Intl.DateTimeFormat(locale, options).format(now);
+            const timeString = new Intl.DateTimeFormat('en-GB', options).format(now);
             setCurrentTime(timeString);
         };
 
@@ -40,35 +33,14 @@ const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone, locale = 'en-GB' })
         const intervalId = setInterval(updateTime, 1000);
 
         return () => clearInterval(intervalId);
-    }, [timeZone, locale]);
+    }, [timeZone]);
 
-    return (
-        <>
-            {currentTime}
-        </>
-    );
+    return <>{currentTime}</>;
 };
 
-export default TimeDisplay;
-
 export const Header = () => {
-    const router = useRouter();
-    const [isPending, startTransition] = useTransition();
-    const pathname = usePathname() ?? '';
-    const params = useParams();
-
-    function handleLanguageChange(locale: string) {
-        const nextLocale = locale as Locale;
-        startTransition(() => {
-            router.replace(
-                pathname,
-                {locale: nextLocale}
-            )
-        })
-    }
-
-    const t = useTranslations();
-    const { person, home, about, blog, work, gallery } = renderContent(t);
+    const pathname = usePathname();
+    const { person, home, about, blog, work } = renderContent();
 
     return (
         <>
@@ -104,7 +76,7 @@ export const Header = () => {
                             { routes['/'] && (
                                 <ToggleButton
                                     prefixIcon="home"
-                                    href={`/${params?.locale}`}
+                                    href="/"
                                     selected={pathname === "/"}>
                                     <Flex paddingX="2" hide="s">{home.label}</Flex>
                                 </ToggleButton>
@@ -112,7 +84,7 @@ export const Header = () => {
                             { routes['/about'] && (
                                 <ToggleButton
                                     prefixIcon="person"
-                                    href={`/${params?.locale}/about`}
+                                    href="/about"
                                     selected={pathname === "/about"}>
                                     <Flex paddingX="2" hide="s">{about.label}</Flex>
                                 </ToggleButton>
@@ -120,25 +92,17 @@ export const Header = () => {
                             { routes['/work'] && (
                                 <ToggleButton
                                     prefixIcon="grid"
-                                    href={`/${params?.locale}/work`}
-                                    selected={pathname.startsWith('/work')}>
+                                    href="/work"
+                                    selected={pathname?.startsWith('/work') ?? false}>
                                     <Flex paddingX="2" hide="s">{work.label}</Flex>
                                 </ToggleButton>
                             )}
                             { routes['/blog'] && (
                                 <ToggleButton
                                     prefixIcon="book"
-                                    href={`/${params?.locale}/blog`}
-                                    selected={pathname.startsWith('/blog')}>
+                                    href="/blog"
+                                    selected={pathname?.startsWith('/blog') ?? false}>
                                     <Flex paddingX="2" hide="s">{blog.label}</Flex>
-                                </ToggleButton>
-                            )}
-                            { routes['/gallery'] && (
-                                <ToggleButton
-                                    prefixIcon="gallery"
-                                    href={`/${params?.locale}/gallery`}
-                                    selected={pathname.startsWith('/gallery')}>
-                                    <Flex paddingX="2" hide="s">{gallery.label}</Flex>
                                 </ToggleButton>
                             )}
                         </Flex>
@@ -150,23 +114,6 @@ export const Header = () => {
                         justifyContent="flex-end" alignItems="center"
                         textVariant="body-default-s"
                         gap="20">
-                        {routing.locales.length > 1 &&
-                            <Flex
-                                background="surface" border="neutral-medium" borderStyle="solid-1" radius="m-4" shadow="l"
-                                padding="4" gap="2"
-                                justifyContent="center">
-                                {i18n && routing.locales.map((locale, index) => (
-                                    <ToggleButton
-                                        key={index}
-                                        selected={params?.locale === locale}
-                                        onClick={() => handleLanguageChange(locale)}
-                                        className={isPending && 'pointer-events-none opacity-60' || ''}
-                                        >
-                                        {locale.toUpperCase()}
-                                    </ToggleButton>
-                                ))}
-                            </Flex>
-                        }
                         <Flex hide="s">
                             { display.time && (
                                 <TimeDisplay timeZone={person.location}/>

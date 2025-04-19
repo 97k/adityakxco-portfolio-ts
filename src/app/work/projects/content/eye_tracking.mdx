@@ -1,0 +1,50 @@
+---
+title: "Insights Through Vision: Eye Tracking with OpenCV"
+publishedAt: "2023-07-12"
+summary: "Development of computer vision techniques for eye tracking and blink detection using OpenCV, with applications in healthcare and human-computer interaction."
+images:
+  - "/images/projects/eye/left_right_eye_ssim_diff.png"
+  - "/images/projects/eye/eye_track_blink.png"
+  - "/images/projects/eye/eye_tracking.gif"
+team:
+  - name: "Aditya Kaushik"
+    role: "Machine Learning Engineer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/adityakxco/"
+github: "https://github.com/97k/Eye"
+label: "Read Case Study"
+---
+
+## Overview
+
+Implementation of computer vision techniques to detect and track eye pupils and capture blink events using OpenCV. This project demonstrates how classical computer vision approaches can achieve sophisticated eye tracking without relying on complex neural networks, particularly for medical device data where only the eyes are visible.
+
+## Key Features
+
+- **Pupil Detection**: Developed an algorithm that uses thresholding and contour detection to precisely locate and track pupils in eye images.
+- **Blink Detection**: Created two distinct approaches for detecting eye blinks - one using facial landmarks and another using structured similarity index (SSIM) for medical device data.
+- **Noise Reduction**: Implemented a dual-eye verification system that only registers a blink when both eyes show a simultaneous drop in SSIM index, reducing false positives.
+- **Real-time Processing**: Optimized the algorithms to perform efficiently in real-time scenarios, making them suitable for practical applications.
+- **Windowed Analysis**: Used a window of 12 frames with custom heuristics to reliably detect blink events while filtering out noise.
+
+## Technologies Used
+
+- **OpenCV**: For image processing tasks including thresholding, contour detection, and frame manipulation.
+- **Python**: For implementing the computer vision algorithms and data processing pipelines.
+- **SSIM**: For measuring the structural similarity between consecutive video frames.
+- **Medical Imaging**: Working with specialized eye-recording device data rather than standard camera images.
+
+## Challenges and Learnings
+
+A significant challenge was developing robust blink detection for medical device data that only captured the eyes without facial landmarks. The solution involved analyzing the SSIM patterns and implementing a windowed approach to confirm blink events. Another challenge was finding the optimal threshold values for pupil detection, which was addressed by developing an automated blob detection algorithm that autonomously determines the threshold.
+
+## Outcome
+
+This research demonstrated that sophisticated eye tracking can be achieved using classical computer vision techniques. The resulting technology has applications in:
+
+- Driver drowsiness detection systems
+- Early neurological disorder screening
+- Assistive technology for cursor control via eye movements
+- Enhanced human-computer interaction experiences
+
+The approach provides a lightweight, efficient alternative to deep learning models for specific eye-tracking tasks. The full implementation is available as an open-source project on [GitHub](https://github.com/97k/Eye).

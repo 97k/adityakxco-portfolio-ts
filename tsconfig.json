@@ -28,14 +28,26 @@
 		"paths": {
 			"@/*": [
 				"./src/*"
+			],
+			"react": [
+				"./node_modules/@types/react"
 			]
-		}
+		},
+		"baseUrl": ".",
+		"noImplicitAny": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"strictBindCallApply": true,
+		"strictPropertyInitialization": true,
+		"noImplicitThis": true,
+		"alwaysStrict": true,
+		"jsxImportSource": "react"
 	},
 	"include": [
 		"next-env.d.ts",
 		"**/*.ts",
 		"**/*.tsx",
-		".next/types/**/*.ts",
+		".next/types/**/*.ts"
 	],
 	"exclude": [
 		"node_modules"

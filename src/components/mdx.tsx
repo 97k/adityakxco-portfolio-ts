@@ -1,7 +1,8 @@
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, Suspense } from 'react';
 
-import { SmartImage, SmartLink, Text } from '@/once-ui/components';
+import { Flex, SmartImage, SmartLink, Text } from '@/once-ui/components';
+import { CodeBlock } from '@/once-ui/modules';
 import { HeadingLink } from '@/components';
 
 import { TextProps } from '@/once-ui/interfaces';
@@ -67,16 +68,21 @@ function createImage({ alt, src, ...props }: SmartImageProps & { src: string }) 
         return null;
     }
 
+    // If alt starts with *, it's a caption
+    const isCaption = alt?.startsWith('*');
+    const imageAlt = isCaption ? alt.substring(1) : alt;
+
     return (
         <SmartImage
             className="my-20"
             enlarge
             radius="m"
             aspectRatio="16 / 9"
-            alt={alt}
+            alt={imageAlt}
             src={src}
-            {...props}/>
-        )
+            {...props}
+        />
+    );
 }
 
 function slugify(str: string): string {
@@ -132,17 +138,34 @@ const components = {
     img: createImage as any,
     a: CustomLink as any,
     Table,
+    CodeBlock
 };
 
-type CustomMDXProps = MDXRemoteProps & {
+type CustomMDXProps = Omit<MDXRemoteProps, 'components'> & {
     components?: typeof components;
 };
 
-export function CustomMDX(props: CustomMDXProps) {
+// Create an async wrapper component for MDXRemote
+async function MDXContent({ source, components: customComponents, ...props }: CustomMDXProps) {
+    try {
+        const content = await MDXRemote({
+            source,
+            components: { ...components, ...(customComponents || {}) },
+            ...props
+        });
+        return content;
+    } catch (error) {
+        console.error('Error rendering MDX content:', error);
+        return <div>Error rendering content</div>;
+    }
+}
+
+// Main CustomMDX component that provides the Suspense boundary
+export default function CustomMDX(props: CustomMDXProps) {
     return (
-        <MDXRemote
-            {...props}
-            components={{ ...components, ...(props.components || {}) }}
-        />
+        <Suspense fallback={<Text>Loading content...</Text>}>
+            {/* @ts-expect-error Async Component */}
+            <MDXContent {...props} />
+        </Suspense>
     );
 }
