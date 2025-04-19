@@ -44,7 +44,7 @@ const createContent = () => {
 
     const home = {
         label: "Home",
-        title: `adityakx.co`,
+        title: `adityak 🧑‍💻`,
         description: `I’m Aditya K, an AI Solutions Architect building scalable AI systems and automation solutions—discover my projects like Sweat, insights on AI agents, and hire me for freelancing or consultancy.`,
         headline: <>I design AI-powered systems that just work</>,
         subline: <>Leveraging Technology to Solve Real-World Problems Thoughtfully</>
