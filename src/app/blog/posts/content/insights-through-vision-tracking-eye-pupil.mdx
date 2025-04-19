@@ -1,0 +1,139 @@
+---
+title: "Insights through Vision: Tracking Eye Pupil using OpenCV for Blink Detection"
+publishedAt: "2023-06-30"
+image: "/images/projects/eye/eye_tracking.gif"
+summary: "Exploring practical applications of eye tracking and blink detection using computer vision techniques, from pupil detection to real-world implementations."
+tag: "Computer Vision"
+---
+
+The ability to catch a blink of an eye, detect the pupil, and even track its movements may seem like fancy tasks, but they have numerous practical applications. Let's explore a handful of use cases that become possible when we have the knowledge and capability to accomplish these tasks:
+
+1. **Eye Gaze Detection**: By analyzing eye movements and direction of gaze, we can develop applications for driver drowsiness detection or even enhance human-computer interaction experiences.
+2. **Early Neurological Disorders Detection**: Tracking the pupil can provide valuable insights for early detection of neurological disorders, as changes in pupil size or responsiveness can indicate certain conditions.
+3. **Eye Mouse Control/Cursor**: With the ability to accurately track the pupil, we can develop systems that allow users to control the mouse cursor or interact with digital interfaces using eye movements.
+4. **Human-Computer Interaction**: The field of human-computer interaction can greatly benefit from eye tracking technology. By understanding where a person is looking, we can create more intuitive and immersive user interfaces.
+
+
+Coming back to the topic, we'll follow the divide and conquer strategy. First, we'll see how eye pupil can be detected, then we'll see how to catch the blink of an eye.
+
+**NOTE**: In this blog, it's important to note that the sample video and images used are obtained from medical devices rather than directly from a camera. (courtesy)   
+Fig 1 (shown below) illustrates this distinction, which might appear unsettling to some individuals. However, it is crucial to understand that data collection from medical devices often involves such procedures.
+
+![*Fig 1: Image from both left and right eye is concatenated to make a single image | Source: Medical device output visualization](/images/blogs/eye_blog_device_captured_img.png)
+
+The human eye is a complex organ consisting of the iris, sclera, and pupil. The pupil, located in the black region of a grayscale image, plays a vital role in regulating light intake.
+
+# Detection of Pupil
+
+Ever wondered what makes the eye truly captivating? It's the pupil, that enchanting black center in a grayscale image. To automatically detect it, we can employ a clever technique called thresholding. By converting the frame to grayscale and setting a threshold, we can reveal its mesmerizing presence.
+
+> Thresholding an image means taking a grayscale image (a grayscale image has pixel values ranging from 0 to 255, 0 being the darkest and 255 being the lightest) and thresholding all the pixels whose values are less than the threshold to 0 and all the values which are greater than the threshold to 1.
+
+To process the image, I have applied a simple thresholding technique, resulting in the generation of a binary thresholded image. This technique involves setting a basic condition to classify pixels as either black or white, based on their intensity values.
+
+```python
+# 1 if pixel_value > threshold else 0 | threshold = 30
+_, threshold_img = cv2.threshold(gray_f, threshold, 255, cv2.THRESH_BINARY)
+```
+
+![*Binary-thresholded image of the eye | Generated using OpenCV thresholding technique](/images/blogs/eye_blog_threshold.png)
+
+By converting the frame to grayscale and setting a threshold, we reveal its mesmerizing presence.
+
+Now, we can locate the pupil using Contour Detection:
+
+> Contours can be thought of as curves that connect adjacent points along a boundary, sharing the same color or intensity. These contours play a crucial role in identifying and capturing all the intricate points that comprise the boundary.  
+> OR  
+> Contours are nothing but continuous points corresponding to a boundary (generally).
+
+In the binary thrashed image, **only pupil is visible**, mark it with a color and we just located pupil. This simple yet effective method yields excellent results in identifying the pupil.
+
+```python
+contours, _ = cv2.findContours(threshold_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+# drawing contours
+cv.drawContours(img, contours, -1, (0,255,0), 3)
+```
+
+Have you ever wondered why contours can take on any shape? It's because they simply represent boundaries. However, when it comes to detecting the pupil contour, we need to ensure accuracy. The key? Remembering that the pupil is circular. Let's employ a clever technique by drawing the minimum enclosing circle.
+
+> Minimum enclosing circle is a circle of the minimum area enclosing a 2D point set.
+
+```python
+approx = cv2.approxPolyDP(contour, 3, True)
+center, radius = cv2.minEnclosingCircle(approx)
+```
+
+![*The pupil has been detected and marked with a red circle | Output from OpenCV contour detection](/images/blogs/eye_blog_pupil_capture.png)
+
+While this blog post doesn't cover pupil tracking in detail, it's worth considering the ease with which we can accomplish it.
+Think about how we can now proceed to track the pupil?
+
+## Challenges: Discovering Problems and Their Solutions
+
+A significant challenge arises when we rely on a fixed threshold to achieve a precise binary-thresholded image. This approach heavily depends on finding the right threshold value. However, I've devised a solution using a simple blob detection algorithm that autonomously determines the threshold. If you're interested, I'd be delighted to share the implementation details of this innovative approach.
+
+Contour detection poses a challenge as it may detect additional contours and draw their circles, if not handled carefully. To address this, we only draw circles whose perimeters closely match the contour's perimeter. This approach ensures promising results, although it involves a trade-off and may not achieve perfect accuracy.
+
+# Catching the blink of an Eye
+
+Blink detection may sound challenging, but there's no need to carry around complex neural networks everywhere you go. Surprisingly, achieving blink detection can be accomplished effortlessly with classical computer vision techniques and a touch of mathematical magic.
+
+There are two distinct approaches for blink detection, depending on the input image:
+
+1. Whole Face Image: If the input image encompasses the entire face, including facial landmarks, a specific approach can be employed for blink detection.
+2. Eye Image: On the other hand, if the input image focuses solely on the eye without any facial landmarks, an alternative approach can be utilized for blink detection.
+
+## With Facial Landmarks
+
+If the whole image of the face is available than blink detection is very straightforward. You only need facial landmarks which you can easily get from the dlib library.
+
+![*Facial landmarks for blink detection | Generated using dlib's facial landmark detector](/images/blogs/eye_blog_landmarks.png)
+
+Detecting a blink involves analyzing the ratio between horizontal and vertical landmarks. When the user blinks, there is a momentary fluctuation or minima in this ratio.
+
+## Without Facial Landmarks
+
+When dealing with data from devices, the traditional approach for blink detection falls short, requiring an alternative method. To illustrate this, take a look at the image below, showcasing a commonly used healthcare device.
+
+![*Healthcare device for eye tracking | Source: HearingReview.com](/images/blogs/eye_blog_healthcare_device.png)
+
+In scenarios where data is solely captured from specialized eye-recording devices, limited to the eyes without the whole face, detecting a blink might seem challenging at first. However, with the right approach, it can be achieved with simplicity.
+
+In these recordings, an intriguing pattern emerges. The act of blinking, a subtle yet recurring event, can be observed and validated by analyzing the structured similarity index (SSIM). This index provides insights into the similarity between two images, unveiling the hidden patterns within.
+
+> SSIM returned a score that represents how similar both images are.  
+> The range of score is between 0 to 1 and the greater the score the similar the images are.
+
+## The Experiment
+
+By calculating the Structural Similarity Index (SSIM) between consecutive frames, I plotted the results and made an intriguing discovery. Take a look at the pattern below and see if you can determine the exact time frame when the person blinked.
+
+![*Eye Blink SSIM between a window of frames | Graph generated using matplotlib](/images/blogs/eye_blog_blink_ssim_frame.png)
+
+Two things to note from the above image:
+* Whenever the person blink an eye, there is a sudden drop in the index
+
+**The Problem?**
+* What will happen when by some means there will be noise in the SSIM technique, that will eventually lead to false positives. See fig 2
+
+![*Fig 2: Noise in SSIM detection | Visualization of false positives in blink detection](/images/blogs/eye_blog_ssim_fig2.png)
+
+## Upgrading the blink detection
+
+Noise can disrupt accurate blink detection, resulting in false positives. The presence of two eyes raises questions: should we treat them individually?
+
+For enhanced blink detection, analyzing the left and right eye separately proves beneficial. A blink is registered when the SSIM index drops in both eyes simultaneously.
+
+![*Fig 3: SSIM index for left and right eye separately | Analysis visualization using matplotlib](/images/projects/eye/left_right_eye_ssim_diff.png)
+
+> A blink will only be detected when there will be a sudden drop in the structured similarity index of both of the left and right eye. If a drop occurs in only one of the eyes, then ignore it, it is noise.
+
+## Logic Building | Hit and Trial
+
+The algorithm's logic for detecting blinks involves examining a window of 12 frames (a hyperparameter). If at least 6 frames within the window score below 0.85, a blink is detected. After the window length of 12, both the window_counter and blink_counter are reset. This approach leverages the SSIM index, ensuring that the algorithm considers low index values for both the left and right eye. By doing so, it mitigates the influence of noise from one eye on the other, reducing the risk of false positives.
+
+Blink detection is a nuanced process that involves several heuristics to enhance accuracy. Factors like video quality, eye movement variations, and even manual errors can influence the results, making it crucial to consider these variables during analysis.
+
+![*Final result showing blink detection in action | Real-time output from the implemented system](/images/projects/eye/eye_tracking.gif)
+
+The code for this project is available on my GitHub. If you're interested in implementing these techniques or have questions about the approach, feel free to reach out on Twitter or check out the repository. 

@@ -141,9 +141,39 @@ export default function Home() {
                 </Flex>
             )}
             <Projects range={[2]}/>
+            {/* Newsletter section commented out for future use
             { newsletter.display &&
                 <Mailchimp newsletter={newsletter} />
-            }
+            } */}
+            <Flex 
+                direction="column" 
+                alignItems="center" 
+                gap="12" 
+                marginTop="xl"
+                style={{
+                    borderTop: '1px solid var(--color-border-neutral-weak)',
+                    paddingTop: 'var(--space-xl)',
+                    maxWidth: '600px',
+                    textAlign: 'center'
+                }}>
+                <Text variant="heading-default-s">
+                    Fun fact: I believe in the power of simplicity, both in code and life! 🌟
+                </Text>
+                <Text 
+                    variant="body-default-m"
+                    onBackground="neutral-weak">
+                    What's your approach to problem-solving? Let's chat about it on 𝕏!
+                </Text>
+                <Button
+                    href="https://twitter.com/adityakxco"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="tertiary"
+                    size="m"
+                    prefixIcon="twitter">
+                    Connect @adityakxco
+                </Button>
+            </Flex>
         </Flex>
     );
 }

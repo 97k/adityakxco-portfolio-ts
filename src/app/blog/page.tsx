@@ -1,7 +1,8 @@
-import { Flex, Heading } from '@/once-ui/components';
+import { Flex, Heading, Text } from '@/once-ui/components';
 import { Mailchimp } from '@/components';
 import { Posts } from '@/components/blog/Posts';
 import { baseURL, renderContent } from '@/app/resources'
+import { SmartLink } from '@/once-ui/components/SmartLink';
 
 export async function generateMetadata() {
 	const { blog } = renderContent();
@@ -72,9 +73,29 @@ export default function Blog() {
 				<Posts range={[1,3]} thumbnail/>
 				<Posts range={[4]} columns="2"/>
 			</Flex>
+			{/* Newsletter section commented out for future use
 			{newsletter.display && (
 				<Mailchimp newsletter={newsletter} />
-			)}
+			)} */}
+			<Flex 
+				direction="column" 
+				alignItems="center" 
+				gap="12" 
+				marginTop="xl"
+				style={{
+					borderTop: '1px solid var(--color-border-neutral-weak)',
+					paddingTop: 'var(--space-xl)'
+				}}>
+				<Text variant="heading-default-s">
+					I am active on 𝕏, let's connect!👋
+				</Text>
+				<SmartLink
+					href="https://twitter.com/adityakxco"
+					target="_blank"
+					rel="noopener noreferrer">
+					Follow @adityakxco
+				</SmartLink>
+			</Flex>
 		</Flex>
 	);
 }
