@@ -1,12 +1,23 @@
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc';
 import React, { ReactNode, Suspense } from 'react';
+import dynamic from 'next/dynamic';
 
 import { Flex, SmartImage, SmartLink, Text } from '@/once-ui/components';
-import { CodeBlock } from '@/once-ui/modules';
 import { HeadingLink } from '@/components';
 
 import { TextProps } from '@/once-ui/interfaces';
 import { SmartImageProps } from '@/once-ui/components/SmartImage';
+
+const Mermaid = dynamic(() => import('@/components/Mermaid'), {
+    ssr: false,
+    loading: () => <Flex
+        fillWidth
+        paddingY="48"
+        justifyContent="center"
+        style={{ minHeight: '200px' }}>
+        <Text>Loading Diagram...</Text>
+    </Flex>
+});
 
 type TableProps = {
     data: {
@@ -127,6 +138,34 @@ function createParagraph({ children }: TextProps) {
     );
 };
 
+// Custom code block handler to detect mermaid
+type CodeProps = {
+    children?: ReactNode;
+    className?: string;
+};
+
+function createCode({ children, className, ...props }: CodeProps) {
+    // Check if this is a mermaid code block
+    const match = /language-(\w+)/.exec(className || '');
+    const language = match ? match[1] : '';
+
+    if (language === 'mermaid') {
+        return <Mermaid chart={String(children).trim()} />;
+    }
+
+    // For inline code, just return a simple code tag
+    if (!className) {
+        return <code {...props}>{children}</code>;
+    }
+
+    // For code blocks with language, wrap in pre
+    return (
+        <pre className={className}>
+            <code>{children}</code>
+        </pre>
+    );
+};
+
 const components = {
     p: createParagraph as any,
     h1: createHeading(1) as any,
@@ -138,7 +177,7 @@ const components = {
     img: createImage as any,
     a: CustomLink as any,
     Table,
-    CodeBlock
+    code: createCode as any
 };
 
 type CustomMDXProps = Omit<MDXRemoteProps, 'components'> & {
