@@ -45,9 +45,9 @@ const createContent = () => {
     const home = {
         label: "Home",
         title: `adityak 🧑‍💻`,
-        description: `I’m Aditya K, an AI Solutions Architect building scalable AI systems and automation solutions—discover my projects like Sweat, insights on AI agents, and hire me for freelancing or consultancy.`,
+        description: `I’m Aditya, software engineer at core with six years of experience delivering production-grade, AI-driven applications. Welcome to my digital garden, here I write for fun and hire me for freelancing or consultancy.`,
         headline: <>I design AI-powered systems that just work</>,
-        subline: <>Leveraging Technology to Solve Real-World Problems Thoughtfully</>
+        subline: <>Leveraging Technology to Solve Business Problems Thoughtfully</>
     }
 
     const about = {
@@ -76,15 +76,15 @@ const createContent = () => {
             title: "Work Experience",
             experiences: [
                 {
-                    company: 'TaskHuman India',
+                    company: 'TaskHuman',
                     timeframe: "2022 - 2025",
                     role: "Data Scientist and Architect",
                     achievements: [
-                        "AI Concierge (In Progress): Currently building an AI agent using state machines to manage conversational user requests efficiently.",
-                        "Search System: Designed and implemented a search system powered by Elasticsearch and sentence embeddings, enabling semantic similarity to deliver relevant results for freeform user queries",
-                        "Streamlined releases by integrating Poetry for dependency management and developing a custom CLI tool to automate image pushes to AWS ECR, simplifying the process for the team",
-                        "Redeployed the data science architecture on AWS ECS, containerizing APIs and introducing Infrastructure as Code (IaC) using AWS CDK in Python.",
-                        "Enhanced coding standards with Slack alerts, proper logging, and Makefile usage; developed sentiment analysis tools and custom automation scripts to support team workflows.",
+                        "Architected and deployed an agentic AI concierge (Burr + Haystack + vector DB) to automate 60% of customer queries, enabling near-instant responses and reducing annual support costs by >$10k.",
+                        "Fine-tuned a custom sentence-embedding model using domain-specific examples (logs, manual dataset), improved search relevance by∼40% and outperforming generic models.",
+                        "Engineered a hybrid retrieval stack (BM25 + dense vectors + API + DB) to improve top-5 result relevance and engagement metrics, slashing zero-result queries by ∼80%.",
+                        "Automated AI regression testing by integrating a multi-stage evaluation framework into the CI/CD pipeline, which validates agentic workflows for tool correctness and response quality using LLM-as-a-Judge and ground-truth comparisons.",
+                        "Designed and implemented Data Science CI/CD using Terraform & GithubActions; reduced pipeline build time from 15→2 minutes (-87%) & saved >20 developer-hours/week through automation and caching."
                     ],
                     images: [
                         // {
@@ -99,11 +99,11 @@ const createContent = () => {
                 {
                     company: 'MoreYeahs',
                     timeframe: "2021 - 2022",
-                    role: "Software Engineer",
+                    role: "Data Scientist I",
                     achievements: [
-                        "Contributed to security compliance by encrypting all traffic and securing APIs behind authentication layers.",
-                        "Improved application performance by 40%",
-                        "Improved code quality by adopting a modular architecture (e.g., MVC) and reducing redundancy through an in-house, installable Python library shared across APIs"
+                        "Pioneered the company’s first semantic search (Sentence Encoder) engine, replacing a legacy keyword system to improve search slashing zero-result queries by∼80%.",
+                        "Authored a proprietary Python library from scratch that standardized ETL, featurization, and model interfaces; integrated into 3 internal product APIs and shortened time-to-production for new features by∼ 25%.",
+                        "Engineered key security controls for SOC2 compliance, implementing API-level JWT authentication and enforcing traffic encryption (SSL/TLS) to pass all technical security audits",
                     ],
                     images: []
                     //     {
@@ -117,11 +117,10 @@ const createContent = () => {
                 {
                     company: 'NeuroEquilibrium',
                     timeframe: "2020 - 2022",
-                    role: "Software Engineer",
+                    role: "Machine Learning Engineer",
                     achievements: [
-                        "Developed diagnostic tools",
-                        "Implemented telemedicine features",
-                        "Optimized data processing pipelines"
+                        "Engineered a marker-less human Gait Test (Detectron2) for the detection of neurological disorder, validated on 50 patients, achieving 95% detection accuracy and enabling a new diagnostic product.",
+                        "Developed a serverless GCP backend (Cloud Functions/Run + Pub/Sub + BigQuery + CloudStorage) handling 1,000s of daily assessments from 700+ clinics in India, reducing infrastructure costs by 40%.",
                     ],
                     files: [
                         {
@@ -135,12 +134,10 @@ const createContent = () => {
                 {
                     company: 'Celebal Tech',
                     timeframe: "2019 - 2020",
-                    role: "Software Engineer",
+                    role: "Associate Data Scientist",
                     achievements: [
-                        "Built enterprise solutions",
-                        "Built deep learning models to detect and summarize car damage (e.g., dents, scratches, broken parts) from images.",
-                        "Developed classical machine learning models to identify employees at risk of attrition, supporting HR decision-making.",
-                        "Developed app using pytesseract to extract text from images."
+                        "Architected a YOLO CV pipeline for car part identification & damage classification, automating 80% of manual classification and reducing claims processing time.",
+                        "Contributed to an HR analytics project by engineering a predictive model to identify employees at risk of attrition.",
                     ],
                     images: [],
                     files: []
@@ -170,45 +167,38 @@ const createContent = () => {
             title: "Technical Skills",
             skills: [
                 {
-                    title: 'Python',
-                    description: <>Expert in building scalable AI systems, automating workflows, and creating data-driven solutions</>,
-                    files: [],
-                    images: [
-                        // {
-                        //     src: '/images/projects/project-01/cover-04.jpg',
-                        //     alt: 'Project image',
-                        //     width: 16,
-                        //     height: 9
-                        // },
-                    ]
+                    title: "Python",
+                    description: <>Expert in Python for production-grade AI, from authoring proprietary libraries and standardizing ETL to building serverless backends and robust APIs (FastAPI, Pydantic).</>,
+                  "files": [],
+                    images: []
                 },
                 {
-                    title: 'AI & Machine Learning',
-                    description: <>Designs intelligent systems through finetuning, evaluations, and hybrid search, enabling advanced search capabilities, intuitive user experiences, and conversational AI agents.</>,
+                    title: "AI & Machine Learning",
+                    description: <>Building and deploying end-to-end AI systems, including RAG-based agentic AI (Burr, Haystack), custom-tuned embedding models, and hybrid search (BM25 + dense) to drive measurable lifts in relevance.</>,
                     files: [],
                     images: []
                 },
                 {
-                    title: 'Cloud & DevOps',
-                    description: <>Orchestrates scalable deployments on AWS (ECS, ECR, CDK), leveraging Docker and Infrastructure as Code to build resilient, automated cloud architectures.</>,
+                  "title": "Cloud & DevOps (MLOps)",
+                  "description": <>Architecting multi-cloud (AWS, GCP, Azure) MLOps pipelines using IaC (Terraform, CDK) and CI/CD (GitHub Actions) to automate builds, slashing deployment times by 85%+ and saving developer hours.</>,
                     files: [],
                     images: []
                 },
                 {
-                    title: 'Architecture & Design',
-                    description: <>Crafts modular architectures (MVC), state machines, and APIs to ensure scalability, maintainability, and efficiency in AI-driven solutions.</>,
+                    title: "AI System Architecture",
+                    description: <>Designing production-grade AI system architectures, including distributed retrieval stacks (Vector DBs, Elasticsearch), agentic workflows (Haystack), and scalable, serverless microservices.</>,
                     files: [],
                     images: []
                 },
                 {
-                    title: 'Automation & Tools',
-                    description: <>Streamlines development pipelines using dependency management tools like uv and Poetry, custom CLI tools, Makefiles, Slack alerts, advanced logging, and microservices to boost team productivity and operational excellence.</>,
+                  "title": "Automation & Tooling",
+                    description: <>Boosting team productivity by streamlining development pipelines with custom libraries, Makefiles, advanced logging, and automated Slack alerts, saving 20+ developer-hours weekly.</>,
                     files: [],
                     images: []
                 },
                 {
-                    title: 'Data & Analysis',
-                    description: <>Harnesses Elasticsearch, sentiment analysis, and computer vision to deliver data-driven solutions that enhance search accuracy and uncover insights.</>,
+                  "title": "Data, CV & Evaluation",
+                    description: <>Leveraging Computer Vision (YOLO, Detectron2) for diagnostic products and implementing rigorous, multi-stage evaluation frameworks (LLM-as-a-Judge, A/B testing) to validate and measurably improve AI model performance.</>,
                     files: [],
                     images: []
                 }

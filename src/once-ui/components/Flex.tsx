@@ -181,9 +181,12 @@ const Flex = forwardRef<HTMLDivElement, ComponentProps>(({
         ...style,
     };
 
+    // Don't pass ref to html or body elements to avoid React warnings
+    const shouldPassRef = Component !== 'html' && Component !== 'body';
+
     return (
         <Component
-            ref={ref}
+            ref={shouldPassRef ? ref : undefined}
             className={classes}
             style={combinedStyle}
             {...rest}>
